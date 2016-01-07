@@ -3,22 +3,50 @@ import { render } from 'react-dom';
 import Root from 'app/containers/Root';
 import configureStore from 'app/store/configureStore';
 
+let injectDiv;
+
 configureStore(store => {
 
   window.addEventListener('load', () => {
-    let injectDiv = document.createElement('div');
-    injectDiv.style.margin = '0 auto';
-    injectDiv.style.padding = '10px 0';
-    injectDiv.style.width = '210px';
-    injectDiv.style.border = '1px solid #ccc';
-    injectDiv.style.textAlign = 'center';
+    injectDiv = document.createElement('div');
+    injectDiv.style.width = '0';
+    injectDiv.style.height = '0';
+    injectDiv.style.position = 'fixed';
+    injectDiv.style.top = '-1px';
+    injectDiv.style.left = '-1px';
+    injectDiv.style.overflow = 'hidden';
+
     injectDiv.className = 'browser-redux';
     document.body.appendChild(injectDiv);
 
+    renderExtension();
+  });
+
+
+  const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+  if (MutationObserver) {
+    const obs = new MutationObserver((mutations) => {
+      const container = mutations
+      .filter(({ target }) => target.id === 'js-repo-pjax-container')
+      .reduce((value, candidate) => {
+        return value || candidate;
+      }, undefined);
+      if (container) {
+        renderExtension();
+      }
+    });
+
+    obs.observe(document.body, {
+      childList : true,
+      subtree : true
+    });
+  }
+
+  function renderExtension() {
     render(
       <Root store={store} />,
       injectDiv
     );
-  });
+  }
 
 });
