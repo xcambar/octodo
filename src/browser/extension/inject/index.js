@@ -42,20 +42,17 @@ configureStore(store => {
     });
   }
 
+  function appendContainerTo(root) {
+    const element = document.createElement('div');
+    element.className = '.xc_octodo-star';
+    root.appendChild(element);
+    return element;
+  }
+
   function renderExtension() {
     const nodeList = document.querySelectorAll('.table-list-issues .table-list-cell-type')
     Array.from(nodeList)
-    .map(cell => {
-      const root = document.createElement('div');
-      cell.appendChild(root);
-      return root;
-    })
-    .map((rootNode)=> {
-      render(
-        <Root store={store} />,
-          rootNode
-      );
-    })
+    .map(cell => cell.querySelector('.xc_octodo-star') || appendContainerTo(cell) )
+    .map((star)=> render(<Root store={store} />, star))
   }
-
 });
