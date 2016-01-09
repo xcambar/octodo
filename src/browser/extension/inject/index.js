@@ -43,10 +43,19 @@ configureStore(store => {
   }
 
   function renderExtension() {
-    render(
-      <Root store={store} />,
-      injectDiv
-    );
+    const nodeList = document.querySelectorAll('.table-list-issues .table-list-cell-type')
+    Array.from(nodeList)
+    .map(cell => {
+      const root = document.createElement('div');
+      cell.appendChild(root);
+      return root;
+    })
+    .map((rootNode)=> {
+      render(
+        <Root store={store} />,
+          rootNode
+      );
+    })
   }
 
 });
