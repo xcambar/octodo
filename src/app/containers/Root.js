@@ -8,10 +8,10 @@ export default class Root extends Component {
   };
 
   render() {
-    const { store } = this.props;
+    const { store, info } = this.props;
     return (
       <Provider store={store}>
-        <App />
+        <App info={info} />
       </Provider>
     );
   }

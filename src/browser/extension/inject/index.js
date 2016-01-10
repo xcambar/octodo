@@ -46,14 +46,18 @@ configureStore(store => {
   function appendContainerTo(root) {
     const element = document.createElement('div');
     element.className = 'xc_octodo-pin';
-    root.appendChild(element);
+    root.querySelector('.table-list-cell-type').appendChild(element);
     return element;
   }
 
   function renderExtension() {
-    const nodeList = document.querySelectorAll('.table-list-issues .table-list-cell-type')
+    const nodeList = document.querySelectorAll('.table-list-issues > *')
     Array.from(nodeList)
-    .map(cell => cell.querySelector('.xc_octodo-pin') || appendContainerTo(cell) )
-    .map((star)=> render(<Root store={store} />, star))
+    .map(item => [item, item.querySelector('.xc_octodo-pin') || appendContainerTo(item) ] )
+    .map(([item, star])=> {
+      const link = item.querySelector('.issue-title-link');
+      return [star, { title: link.innerHTML.trim(), url: link.href }];
+    })
+    .map(([star, props])=> render(<Root store={store} info={props}/>, star))
   }
 });
