@@ -2,11 +2,16 @@ import path from 'path';
 import webpack from 'webpack';
 
 const srcPath = path.join(__dirname, '../src/browser/');
+const assetPath = path.join(__dirname, '../src/assets/');
 
 const baseConfig = ({ input, output = {}, globals = {}, plugins, loaders, entry = [] }) => ({
   entry: input || {
     background: [`${srcPath}extension/background/index`, ...entry],
-    inject: [`${srcPath}extension/inject/index`, ...entry]
+    inject: [
+      `${srcPath}extension/inject/index`,
+      `${assetPath}css/inject`,
+      ...entry
+    ]
   },
   output: {
     filename: '[name].bundle.js',
@@ -31,7 +36,7 @@ const baseConfig = ({ input, output = {}, globals = {}, plugins, loaders, entry 
       app: path.join(__dirname, '../src/app'),
       extension: path.join(__dirname, '../src/browser/extension')
     },
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.css']
   },
   module: {
     loaders: [
