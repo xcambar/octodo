@@ -42,9 +42,10 @@ configureStore(store => {
     });
   }
 
+  const iconName = 'pin';
   function appendContainerTo(root) {
     const element = document.createElement('div');
-    element.className = '.xc_octodo-star';
+    element.className = ['xc_octodo-pin', 'octicon', `octicon-${iconName}`].join(' ');
     root.appendChild(element);
     return element;
   }
@@ -52,7 +53,7 @@ configureStore(store => {
   function renderExtension() {
     const nodeList = document.querySelectorAll('.table-list-issues .table-list-cell-type')
     Array.from(nodeList)
-    .map(cell => cell.querySelector('.xc_octodo-star') || appendContainerTo(cell) )
+    .map(cell => cell.querySelector(`octicon-${iconName}`) || appendContainerTo(cell) )
     .map((star)=> render(<Root store={store} />, star))
   }
 });

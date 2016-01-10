@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Counter = ({ increment, incrementIfOdd, incrementAsync, decrement, state }) => (
-  <span onClick={increment}>{state.counter.count}</span>
+  <span onClick={increment}></span>
   // <div>
   //   Clicked: <span className="counter">{state.counter.count}</span> times
   //   <div className="rule"></div>
