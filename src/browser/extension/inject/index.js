@@ -45,7 +45,7 @@ configureStore(store => {
   const iconName = 'pin';
   function appendContainerTo(root) {
     const element = document.createElement('div');
-    element.className = ['xc_octodo-pin', 'octicon', `octicon-${iconName}`].join(' ');
+    element.className = 'xc_octodo-pin';
     root.appendChild(element);
     return element;
   }
@@ -53,7 +53,7 @@ configureStore(store => {
   function renderExtension() {
     const nodeList = document.querySelectorAll('.table-list-issues .table-list-cell-type')
     Array.from(nodeList)
-    .map(cell => cell.querySelector(`octicon-${iconName}`) || appendContainerTo(cell) )
+    .map(cell => cell.querySelector('.xc_octodo-pin') || appendContainerTo(cell) )
     .map((star)=> render(<Root store={store} />, star))
   }
 });

@@ -1,0 +1,7 @@
+.xc_octodo-pin {
+  color: #DDD;
+}
+
+.xc_octodo-pin.active {
+  color: #4078C0;
+}

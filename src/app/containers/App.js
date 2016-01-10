@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
-import Counter from '../components/Counter';
-import * as counterActions from '../actions/counter';
+import PinMarker from '../components/PinMarker';
+import * as pinMarkerActions from '../actions/pin-marker';
 
 function mapStateToProps(state) {
   return { state };
 }
 
-const mapDispatchToProps = counterActions; // { ...counterActions, ...};
+const mapDispatchToProps = pinMarkerActions; // { ...counterActions, ...};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(PinMarker);
